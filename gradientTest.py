@@ -1,3 +1,4 @@
+import time
 import matplotlib.pyplot as plt
 import psycopg2
 import numpy as np
@@ -57,7 +58,10 @@ params = {'n_estimators': 20,
           'min_samples_split': 5,
           'learning_rate': 0.01}
 reg = ensemble.GradientBoostingClassifier(**params)
+start = time.time()
 reg.fit(X_train, y_train)
+stop = time.time()
+print("Time to complete: ", stop-start)
 #mse = mean_squared_error(y_test, reg.predict(X_test))
 #print("The mean squared error (MSE) on test set: {:.4f}".format(mse))
 #y_score = reg.score(X_test,y_test)

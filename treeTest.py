@@ -1,4 +1,4 @@
-
+import time
 import psycopg2
 import numpy as np
 from sklearn import tree
@@ -52,9 +52,12 @@ print(len(X_test))
 print(len(y_train))
 print(len(y_test))
 clf = tree.DecisionTreeClassifier()
+start = time.time()
 clf = clf.fit(X_train,y_train)
+stop = time.time()
+print("Time to complete: ", stop-start)
 prediction = clf.predict(X_test)
-print(classification_report(y_test,prediction))
+print(classification_report(y_test,prediction,zero_division=1))
 print(prediction)
 print(y_test)
 #dot_data = tree.export_graphviz(clf, out_file=None)

@@ -1,3 +1,4 @@
+import time
 from sklearn.ensemble import RandomForestClassifier
 import psycopg2
 import numpy as np
@@ -52,10 +53,13 @@ print(len(X_test))
 print(len(y_train))
 print(len(y_test))
 clf = RandomForestClassifier(n_estimators=10)
+start = time.time()
 clf = clf.fit(X_train,y_train)
+stop = time.time()
+print("Time to complete: ", stop-start)
 prediction = clf.predict(X_test)
 print(len(prediction))
-print(classification_report(y_test,prediction))
+print(classification_report(y_test,prediction,zero_division=1))
 print(prediction)
 print(y_test)
 #dot_data = tree.export_graphviz(clf, out_file=None)
