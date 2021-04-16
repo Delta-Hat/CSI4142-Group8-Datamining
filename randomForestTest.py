@@ -45,7 +45,7 @@ for (W,X,Y,Z) in l:
 		pa.append(0)
 data = []
 for i in range(len(pa)):
-	data.append([rd[i],mr[i],wl[i]])
+	data.append([mr[i],wl[i]])
 
 X_train, X_test, y_train, y_test = sklearn.model_selection.train_test_split(data, pa, test_size=0.33, random_state=15)
 print(len(X_train))
@@ -56,9 +56,9 @@ clf = RandomForestClassifier(n_estimators=10)
 start = time.time()
 clf = clf.fit(X_train,y_train)
 stop = time.time()
+print("Random Forest Results:")
 print("Time to complete: ", stop-start)
 prediction = clf.predict(X_test)
-print(len(prediction))
 print(classification_report(y_test,prediction,zero_division=1))
 print(prediction)
 print(y_test)

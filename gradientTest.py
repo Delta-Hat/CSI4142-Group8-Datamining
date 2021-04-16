@@ -46,7 +46,7 @@ for (W,X,Y,Z) in l:
 		pa.append(0)
 data = []
 for i in range(len(pa)):
-	data.append([rd[i],mr[i],wl[i]])
+	data.append([mr[i],wl[i]])
 
 X_train, X_test, y_train, y_test = sklearn.model_selection.train_test_split(data, pa, test_size=0.33, random_state=15)
 print(len(X_train))
@@ -61,6 +61,7 @@ reg = ensemble.GradientBoostingClassifier(**params)
 start = time.time()
 reg.fit(X_train, y_train)
 stop = time.time()
+print("Gradient Boosting Results:")
 print("Time to complete: ", stop-start)
 #mse = mean_squared_error(y_test, reg.predict(X_test))
 #print("The mean squared error (MSE) on test set: {:.4f}".format(mse))

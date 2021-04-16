@@ -44,7 +44,7 @@ for (W,X,Y,Z) in l:
 		pa.append(0)
 data = []
 for i in range(len(pa)):
-	data.append([rd[i],mr[i],wl[i]])
+	data.append([mr[i],wl[i]])
 
 X_train, X_test, y_train, y_test = sklearn.model_selection.train_test_split(data, pa, test_size=0.33, random_state=15)
 print(len(X_train))
@@ -55,6 +55,7 @@ clf = tree.DecisionTreeClassifier()
 start = time.time()
 clf = clf.fit(X_train,y_train)
 stop = time.time()
+print("Decision Tree Results:")
 print("Time to complete: ", stop-start)
 prediction = clf.predict(X_test)
 print(classification_report(y_test,prediction,zero_division=1))
