@@ -1,12 +1,11 @@
-import matplotlib.pyplot as plt
+from sklearn.ensemble import RandomForestClassifier
 import psycopg2
 import numpy as np
-from sklearn import datasets, ensemble
+from sklearn import tree
 from sklearn.inspection import permutation_importance
 from sklearn.metrics import mean_squared_error
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import average_precision_score, classification_report
-
 import sklearn
 import graphviz
 print("running...")
@@ -52,23 +51,16 @@ print(len(X_train))
 print(len(X_test))
 print(len(y_train))
 print(len(y_test))
-params = {'n_estimators': 20,
-          'max_depth': 4,
-          'min_samples_split': 5,
-          'learning_rate': 0.01}
-reg = ensemble.GradientBoostingClassifier(**params)
-reg.fit(X_train, y_train)
-#mse = mean_squared_error(y_test, reg.predict(X_test))
-#print("The mean squared error (MSE) on test set: {:.4f}".format(mse))
-#y_score = reg.score(X_test,y_test)
-prediction = reg.predict(X_test)
-#print("Recall score ", recall_score(y_test,reg.predict(X_test)))
-#average_precision = average_precision_score(y_test, y_score)
-#eg.predict(X_test).s
-print(classification_report(y_test,prediction,zero_division=1))
+clf = RandomForestClassifier(n_estimators=10)
+clf = clf.fit(X_train,y_train)
+prediction = clf.predict(X_test)
+print(len(prediction))
+print(classification_report(y_test,prediction))
 print(prediction)
 print(y_test)
-
+#dot_data = tree.export_graphviz(clf, out_file=None)
+#graph = graphviz.Source(dot_data)
+#graph.render("treeModel")
 
 cur.close()
 conn.close()

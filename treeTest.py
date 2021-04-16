@@ -5,6 +5,7 @@ from sklearn import tree
 from sklearn.inspection import permutation_importance
 from sklearn.metrics import mean_squared_error
 from sklearn.model_selection import train_test_split
+from sklearn.metrics import average_precision_score, classification_report
 import sklearn
 import graphviz
 print("running...")
@@ -45,15 +46,17 @@ data = []
 for i in range(len(pa)):
 	data.append([rd[i],mr[i],wl[i]])
 
-X_train, X_test, y_train, y_test = sklearn.model_selection.train_test_split(data, pa, test_size=0.3, random_state=15)
+X_train, X_test, y_train, y_test = sklearn.model_selection.train_test_split(data, pa, test_size=0.33, random_state=15)
 print(len(X_train))
 print(len(X_test))
 print(len(y_train))
 print(len(y_test))
 clf = tree.DecisionTreeClassifier()
 clf = clf.fit(X_train,y_train)
-mse = mean_squared_error(y_test, clf.predict(X_test))
-print("The mean squared error (MSE) on test set: {:.4f}".format(mse))
+prediction = clf.predict(X_test)
+print(classification_report(y_test,prediction))
+print(prediction)
+print(y_test)
 #dot_data = tree.export_graphviz(clf, out_file=None)
 #graph = graphviz.Source(dot_data)
 #graph.render("treeModel")
